@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+  html, body { overflow-x: clip; }
+  body { @apply bg-white font-sans text-navy; font-feature-settings: 'ss01'; }
+  h1, h2, h3 { @apply text-navy; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  ::selection { background: #a6dbf0; color: #152b3c; }
+  :focus-visible { @apply outline-none ring-2 ring-brand ring-offset-2; }
+}
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+  .section { @apply py-20 sm:py-24 lg:py-28; }
+  .eyebrow { @apply inline-flex items-center gap-2 rounded-full bg-brand-50 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-brand-600; }
+  .h-display { @apply font-display font-medium tracking-tight; font-variation-settings: 'opsz' 96, 'SOFT' 30; }
+  .card { @apply rounded-3xl border border-navy/[0.06] bg-white shadow-soft; }
+  .input {
+    @apply block w-full rounded-xl border border-navy/10 bg-white px-4 py-3 text-[15px] text-navy placeholder:text-navy-300
+      transition focus:border-brand focus:outline-none focus:ring-4 focus:ring-brand/15;
+  }
+  .input-error { @apply border-red-400 focus:border-red-500 focus:ring-red-500/15; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* Lenis smooth scrolling */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
