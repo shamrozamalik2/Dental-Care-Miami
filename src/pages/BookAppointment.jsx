@@ -25,10 +25,11 @@ export default function BookAppointment() {
         image="/images/consultation.webp"
         eyebrow="Appointments"
         title="Request an appointment"
+        highlight="appointment"
+        actions={false}
+        badge={{ icon: Phone, label: 'Prefer to call?', value: site.phoneDisplay, href: site.phoneHref }}
         intro="Share a few details and your preferred time. Our team will contact you to confirm — it only takes a minute."
-      >
-        <a href={site.phoneHref} className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-3 font-semibold text-white backdrop-blur transition hover:bg-white/20"><Phone className="h-4 w-4" aria-hidden="true" /> Prefer to call? {site.phoneDisplay}</a>
-      </PageHero>
+      />
 
       <section className="section !pt-12 sm:!pt-16">
         <div className="container-x grid gap-10 lg:grid-cols-12">

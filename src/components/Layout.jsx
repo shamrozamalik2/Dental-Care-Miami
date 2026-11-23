@@ -4,6 +4,7 @@ import { AnimatePresence, MotionConfig, motion } from 'framer-motion'
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
 import MobileCallBar from './MobileCallBar.jsx'
+import { Preloader, Cursor, Grain } from './Experience.jsx'
 import { ScrollProgress, EASE } from './motion.jsx'
 import { SmoothScroll, useLenis, scrollToTarget } from '../lib/smoothScroll.jsx'
 
@@ -64,6 +65,9 @@ function Shell() {
       >
         Skip to content
       </a>
+      <Preloader />
+      <Cursor />
+      <Grain />
       <ScrollProgress />
       <Header />
       <AnimatePresence

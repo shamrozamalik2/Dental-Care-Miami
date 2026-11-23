@@ -47,6 +47,9 @@ export default function About() {
         image="/images/clinic-miami.webp"
         eyebrow="About Us"
         title="Dental care centered on you"
+        highlight="on you"
+        imageAlt="Dental treatment room with windows looking out onto palm trees"
+        badge={{ icon: HeartHandshake, label: 'Our focus', value: 'Patient-centered care' }}
         intro="Miami Dental Clinic is a dental practice in Miami, Florida, focused on patient-centered care, comfortable visits and clear, honest communication."
       />
 

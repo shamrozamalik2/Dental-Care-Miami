@@ -1,4 +1,4 @@
-import { CalendarCheck, Phone, Info, Siren, ArrowRight } from 'lucide-react'
+import { CalendarCheck, Phone, Info, Siren, ArrowRight, Stethoscope } from 'lucide-react'
 import PageHero from '../components/PageHero.jsx'
 import Button from '../components/Button.jsx'
 import Reveal from '../components/Reveal.jsx'
@@ -65,6 +65,9 @@ export default function Services() {
         image="/images/general.webp"
         eyebrow="Our Services"
         title="Dental services in Miami, Florida"
+        highlight="Miami, Florida"
+        imageAlt="Bright dental treatment room"
+        badge={{ icon: Stethoscope, label: 'Ask our team about', value: 'Cleanings to braces' }}
         intro="Explore the types of care you can ask Miami Dental Clinic about. Not sure what you need? Call our office and we’ll help you find the right next step."
       />
 

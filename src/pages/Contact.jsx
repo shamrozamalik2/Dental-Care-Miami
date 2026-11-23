@@ -6,7 +6,8 @@ import MapEmbed from '../components/MapEmbed.jsx'
 import HoursCard from '../components/HoursCard.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Button from '../components/Button.jsx'
-import { CalendarCheck } from 'lucide-react'
+import { CalendarCheck, MapPin } from 'lucide-react'
+import { site } from '../config/site.js'
 import { useSeo } from '../lib/useSeo.js'
 
 export default function Contact() {
@@ -22,6 +23,8 @@ export default function Contact() {
         image="/images/hero-1920.webp"
         eyebrow="Contact Us"
         title="We’re here to help"
+        highlight="to help"
+        badge={{ icon: MapPin, label: 'Visit us', value: site.address.street, href: site.mapsDirectionsUrl, ext: true }}
         intro="Call us, send a message, or stop by our Miami clinic. The fastest way to reach us is by phone."
       />
 

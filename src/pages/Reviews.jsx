@@ -1,4 +1,4 @@
-import { ArrowUpRight, PenLine, Info } from 'lucide-react'
+import { ArrowUpRight, PenLine, Info, Star } from 'lucide-react'
 import PageHero from '../components/PageHero.jsx'
 import ReviewCard from '../components/ReviewCard.jsx'
 import Reveal from '../components/Reveal.jsx'
@@ -21,7 +21,9 @@ export default function Reviews() {
         crumb="Reviews"
         image="/images/cleaning.webp"
         eyebrow="Patient Reviews"
-        title="What patients say"
+        title="What our patients say"
+        highlight="patients say"
+        badge={{ icon: Star, label: 'Google rating', value: `${site.rating.value.toFixed(1)} / 5 · ${site.rating.count} reviews`, href: site.googleProfileUrl, ext: true }}
         intro="Our Google rating and selected excerpts from patient reviews, shown as they appear on Google."
       />
 

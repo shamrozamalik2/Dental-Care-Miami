@@ -11,7 +11,7 @@ import {
   PhoneCall,
   Clock,
   Navigation,
-  ChevronDown,
+  Sparkle,
   Quote,
 } from 'lucide-react'
 import Button from '../components/Button.jsx'
@@ -21,6 +21,7 @@ import { GoogleG } from '../components/GoogleRating.jsx'
 import Stars from '../components/Stars.jsx'
 import MapEmbed from '../components/MapEmbed.jsx'
 import HoursCard from '../components/HoursCard.jsx'
+import { ConcernPicker, EmergencyRibbon, Faq } from '../components/Conversion.jsx'
 import {
   Counter,
   DrawPath,
@@ -53,8 +54,8 @@ const Eyebrow = ({ children, light = false }) => (
 
 /* ════════════════════════ HERO ════════════════════════ */
 
-/** Small glass panel that starts a booking request and pre-fills the full form. */
-function QuickBook() {
+/** Horizontal booking bar: starts a request and pre-fills the full form. */
+function BookingBar() {
   const navigate = useNavigate()
   const [service, setService] = useState('')
   const [date, setDate] = useState('')
@@ -65,50 +66,63 @@ function QuickBook() {
     if (date) q.set('date', date)
     navigate(`/book-appointment${q.toString() ? `?${q}` : ''}`)
   }
-  const field =
-    'w-full rounded-2xl border border-white/15 bg-white/10 px-4 py-3.5 text-[15px] text-white outline-none transition placeholder:text-white/50 focus:border-teal focus:bg-white/15 [color-scheme:dark]'
+  const field = 'w-full appearance-none bg-transparent text-[15px] font-semibold text-white outline-none [color-scheme:dark]'
   return (
     <form
       onSubmit={submit}
       aria-label="Start an appointment request"
-      className="rounded-[1.75rem] border border-white/15 bg-white/[0.08] p-6 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:p-7"
+      className="grid gap-2 rounded-[2rem] border border-white/15 bg-white/[0.07] p-2 shadow-[0_40px_100px_-30px_rgba(0,0,0,0.6)] backdrop-blur-2xl md:grid-cols-[1.3fr_1fr_auto] md:rounded-full"
     >
-      <div className="flex items-center justify-between">
-        <p className="font-display text-2xl text-white">Request a visit</p>
-        <span className="grid h-10 w-10 place-items-center rounded-full bg-teal text-white">
-          <CalendarCheck className="h-5 w-5" aria-hidden="true" />
+      <label className="flex items-center gap-4 rounded-full px-5 py-3 transition hover:bg-white/[0.06]">
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/10 text-teal">
+          <Sparkle className="h-4 w-4" aria-hidden="true" />
         </span>
-      </div>
-      <p className="mt-1.5 text-sm text-white/60">Pick a service and a day. We’ll confirm the details with you.</p>
-      <div className="mt-6 space-y-3">
-        <label className="block">
-          <span className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.14em] text-white/50">Service</span>
+        <span className="min-w-0 flex-1">
+          <span className="block text-[11px] font-semibold uppercase tracking-[0.18em] text-white/45">Service</span>
           <select value={service} onChange={(e) => setService(e.target.value)} className={field}>
-            <option value="" className="text-navy">Select a service</option>
+            <option value="" className="text-navy">Choose a service</option>
             {services.map((s) => (
               <option key={s.slug} value={s.slug} className="text-navy">{s.title}</option>
             ))}
           </select>
-        </label>
-        <label className="block">
-          <span className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.14em] text-white/50">Preferred date</span>
+        </span>
+      </label>
+      <label className="flex items-center gap-4 rounded-full px-5 py-3 transition hover:bg-white/[0.06] md:border-l md:border-white/10">
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/10 text-teal">
+          <CalendarCheck className="h-4 w-4" aria-hidden="true" />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block text-[11px] font-semibold uppercase tracking-[0.18em] text-white/45">Preferred date</span>
           <input type="date" min={todayISO()} value={date} onChange={(e) => setDate(e.target.value)} className={field} />
-        </label>
-      </div>
+        </span>
+      </label>
       <button
         type="submit"
-        className="group mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-4 font-semibold text-navy transition hover:bg-teal hover:text-white"
+        className="group flex items-center justify-center gap-2 rounded-full bg-teal px-8 py-4 font-semibold text-white transition hover:bg-white hover:text-navy"
       >
-        Continue to booking
+        Request a visit
         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
       </button>
-      <p className="mt-4 text-center text-xs text-white/50">
-        or call{' '}
-        <a href={site.phoneHref} className="font-semibold text-white hover:text-teal">
-          {site.phoneDisplay}
-        </a>
-      </p>
     </form>
+  )
+}
+
+/** Text that rotates around a circle. */
+function RotatingBadge({ text, className = '' }) {
+  return (
+    <div className={`relative grid h-32 w-32 place-items-center ${className}`}>
+      <svg viewBox="0 0 120 120" className="animate-spin-slow absolute inset-0 h-full w-full" aria-hidden="true">
+        <defs>
+          <path id="badge-circle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" />
+        </defs>
+        <text className="fill-white text-[10.5px] font-semibold uppercase tracking-[0.3em]">
+          <textPath href="#badge-circle">{text}</textPath>
+        </text>
+      </svg>
+      <span className="grid h-14 w-14 place-items-center rounded-full bg-teal text-white">
+        <ArrowUpRight className="h-6 w-6" aria-hidden="true" />
+      </span>
+    </div>
   )
 }
 
@@ -116,51 +130,43 @@ function Hero() {
   const ref = useRef(null)
   const reduce = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '25%'])
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.12])
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, 120])
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0])
+  const archY = useTransform(scrollYProgress, [0, 1], [0, -90])
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.18])
+  const circleY = useTransform(scrollYProgress, [0, 1], [0, 140])
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 80])
 
   return (
-    <section
-      ref={ref}
-      className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-navy"
-      style={{ marginTop: 'calc(var(--header-h) * -1)' }}
-    >
-      {/* Photo + scrim */}
-      <motion.div className="absolute inset-0 -z-10" style={reduce ? undefined : { y: imgY, scale: imgScale }}>
-        <motion.picture
-          className="block h-full w-full"
-          initial={{ scale: 1.2, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 2, ease: EASE }}
-        >
-          <source media="(min-width: 768px)" srcSet="/images/hero-1920.webp" />
-          <img
-            src="/images/hero-900.webp"
-            alt="Bright, modern dental treatment room with a turquoise dental chair"
-            width="1920"
-            height="1080"
-            fetchpriority="high"
-            className="h-full w-full object-cover"
-          />
-        </motion.picture>
-      </motion.div>
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-navy via-navy/80 to-navy/30 max-lg:bg-navy/75" />
-      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-navy to-transparent" />
+    <section ref={ref} className="relative isolate overflow-hidden bg-navy" style={{ marginTop: 'calc(var(--header-h) * -1)' }}>
+      {/* Living background: drifting colour fields + fine grid */}
+      <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="animate-mesh absolute -left-[10%] top-[5%] h-[42rem] w-[42rem] rounded-full bg-brand/50 blur-[140px]" />
+        <div className="animate-mesh-slow absolute -right-[5%] bottom-[-10%] h-[36rem] w-[36rem] rounded-full bg-teal/35 blur-[140px]" />
+        <div
+          className="absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.6) 1px, transparent 1px)',
+            backgroundSize: '72px 72px',
+            maskImage: 'radial-gradient(ellipse at 30% 40%, black 20%, transparent 70%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at 30% 40%, black 20%, transparent 70%)',
+          }}
+        />
+      </div>
 
-      <motion.div
-        style={reduce ? undefined : { y: contentY, opacity: contentOpacity }}
-        className="container-x relative flex flex-1 flex-col justify-center pb-10"
-      >
-        <div className="grid items-center gap-12 lg:grid-cols-12" style={{ paddingTop: 'calc(var(--header-h) + 3rem)' }}>
-          <div className="lg:col-span-7">
-            <motion.div {...fadeUp(0.3)}>
-              <Eyebrow light>Dental clinic · Miami, Florida</Eyebrow>
+      <div className="container-x relative" style={{ paddingTop: 'calc(var(--header-h) + 3.5rem)' }}>
+        <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-8">
+          {/* Copy */}
+          <motion.div className="lg:col-span-7" style={reduce ? undefined : { y: textY }}>
+            <motion.div
+              {...fadeUp(0.3)}
+              className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.06] py-1.5 pl-1.5 pr-4 backdrop-blur"
+            >
+              <span className="rounded-full bg-teal px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-white">Miami, FL</span>
+              <span className="text-sm text-white/70">Dental care for the whole smile</span>
             </motion.div>
 
             <motion.h1
-              className="h-display mt-7 text-[3rem] leading-[0.98] !text-white sm:text-7xl lg:text-[5.6rem]"
+              className="h-display mt-8 text-[3.1rem] leading-[0.95] !text-white sm:text-7xl lg:text-[6rem]"
               initial="hidden"
               animate="show"
               variants={wordContainer(0.45, 0.08)}
@@ -172,16 +178,19 @@ function Hero() {
                   <Word className="italic text-teal">Healthier</Word>
                   <DrawPath d="M2 9c30-6 80-8 116-3" viewBox="0 0 120 12" delay={1.3} className="absolute -bottom-2 left-0 h-3.5 w-full text-teal/70" />
                 </span>{' '}
-                <Word>Smiles,</Word> <Word>One</Word> <Word>Visit</Word> <Word>at</Word> <Word>a</Word> <Word>Time.</Word>
+                <Word>Smiles,</Word>{' '}
+                <Word className="text-white/45">One</Word> <Word className="text-white/45">Visit</Word>{' '}
+                <Word className="text-white/45">at</Word> <Word className="text-white/45">a</Word>{' '}
+                <Word className="text-white/45">Time.</Word>
               </span>
             </motion.h1>
 
-            <motion.p {...fadeUp(1.1)} className="mt-8 max-w-xl text-lg leading-relaxed text-white/75 sm:text-xl">
+            <motion.p {...fadeUp(1.1)} className="mt-9 max-w-md text-lg leading-relaxed text-white/70">
               Discover professional dental care in Miami. Explore our services and contact our team to request your
               appointment.
             </motion.p>
 
-            <motion.div {...fadeUp(1.25)} className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <motion.div {...fadeUp(1.25)} className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Magnetic>
                 <Button to="/book-appointment" variant="accent" size="lg" className="group w-full">
                   <CalendarCheck className="h-5 w-5" aria-hidden="true" /> Book an Appointment
@@ -194,57 +203,93 @@ function Hero() {
                 </Button>
               </Magnetic>
             </motion.div>
-          </div>
-
-          <motion.div
-            className="hidden lg:col-span-5 lg:block"
-            initial={{ opacity: 0, y: 50, rotateX: 12 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ duration: 1.2, ease: EASE, delay: 1 }}
-            style={{ transformPerspective: 1200 }}
-          >
-            <div className="ml-auto max-w-sm">
-              <QuickBook />
-            </div>
           </motion.div>
+
+          {/* Visual composition */}
+          <div className="relative mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none">
+            <motion.div
+              style={reduce ? undefined : { y: archY }}
+              initial={{ clipPath: 'inset(100% 0% 0% 0%)' }}
+              animate={{ clipPath: 'inset(0% 0% 0% 0%)' }}
+              transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1], delay: 0.5 }}
+              className="relative ml-auto aspect-[4/5] w-[88%] overflow-hidden rounded-b-[2.5rem] rounded-t-[999px] bg-brand-800"
+            >
+              <motion.picture className="block h-full w-full" style={reduce ? undefined : { scale: imgScale }}>
+                <source media="(min-width: 768px)" srcSet="/images/hero-1920.webp" />
+                <img
+                  src="/images/hero-900.webp"
+                  alt="Bright, modern dental treatment room with a turquoise dental chair"
+                  width="1920"
+                  height="1080"
+                  fetchpriority="high"
+                  className="h-full w-full object-cover object-[60%_50%]"
+                />
+              </motion.picture>
+              <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent" />
+            </motion.div>
+
+            {/* Secondary circular photo */}
+            <motion.div
+              style={reduce ? undefined : { y: circleY }}
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1, ease: EASE, delay: 1.4 }}
+              className="absolute -left-2 bottom-10 h-36 w-36 overflow-hidden rounded-full border-[6px] border-navy shadow-2xl sm:h-44 sm:w-44 lg:-left-10"
+            >
+              <img src="/images/consultation.webp" alt="" className="h-full w-full object-cover" />
+            </motion.div>
+
+            {/* Google rating chip */}
+            <motion.a
+              href={site.googleProfileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 1.7 }}
+              className="absolute -right-2 top-[16%] flex items-center gap-3 rounded-2xl bg-white p-3 pr-5 text-navy shadow-2xl sm:-right-6"
+            >
+              <span className="grid h-11 w-11 place-items-center rounded-xl bg-sky-soft">
+                <GoogleG className="h-5 w-5" />
+              </span>
+              <span>
+                <span className="flex items-center gap-2">
+                  <span className="font-display text-2xl font-semibold leading-none">{site.rating.value.toFixed(1)}</span>
+                  <Stars value={site.rating.value} className="h-3.5 w-3.5" />
+                </span>
+                <span className="mt-1 block text-xs text-navy-500">{site.rating.count} Google reviews</span>
+              </span>
+            </motion.a>
+
+            {/* Rotating badge */}
+            <motion.div
+              initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
+              animate={{ opacity: 1, rotate: 0, scale: 1 }}
+              transition={{ duration: 1.1, ease: EASE, delay: 1.9 }}
+              className="absolute -bottom-6 right-2 hidden sm:block"
+            >
+              <Link to="/book-appointment" aria-label="Book an appointment" data-cursor="Book" className="block rounded-full">
+                <RotatingBadge text="Book a visit • Miami Dental Clinic • " className="rounded-full bg-navy/70 backdrop-blur-md" />
+              </Link>
+            </motion.div>
+          </div>
         </div>
 
-        {/* Info strip */}
-        <motion.div
-          {...fadeUp(1.5)}
-          className="mt-14 grid gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 sm:grid-cols-3 lg:mt-20"
-        >
-          {[
-            { icon: PhoneCall, label: 'Call our office', value: site.phoneDisplay, href: site.phoneHref },
-            { icon: Navigation, label: 'Find us', value: site.addressOneLine, href: site.mapsDirectionsUrl, ext: true },
-            { icon: Clock, label: 'Opening hours', value: 'Please call to confirm', href: site.phoneHref },
-          ].map(({ icon: Icon, label, value, href, ext }) => (
-            <a
-              key={label}
-              href={href}
-              {...(ext ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              className="group flex items-center gap-4 bg-navy/40 p-5 backdrop-blur-md transition-colors hover:bg-white/10"
-            >
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 text-teal transition group-hover:border-teal group-hover:bg-teal group-hover:text-white">
-                <Icon className="h-5 w-5" aria-hidden="true" />
-              </span>
-              <span className="min-w-0">
-                <span className="block text-xs uppercase tracking-[0.16em] text-white/50">{label}</span>
-                <span className="mt-0.5 block truncate font-semibold text-white">{value}</span>
-              </span>
+        <motion.div {...fadeUp(1.5)} className="relative z-10 mt-16 pb-28 lg:mt-20 lg:pb-32">
+          <BookingBar />
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-white/55">
+            <a href={site.phoneHref} className="flex items-center gap-2 hover:text-white">
+              <PhoneCall className="h-4 w-4 text-teal" aria-hidden="true" /> {site.phoneDisplay}
             </a>
-          ))}
+            <a href={site.mapsDirectionsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white">
+              <Navigation className="h-4 w-4 text-teal" aria-hidden="true" /> {site.addressOneLine}
+            </a>
+            <span className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-teal" aria-hidden="true" /> Please call to confirm hours
+            </span>
+          </div>
         </motion.div>
-      </motion.div>
-
-      <motion.div
-        aria-hidden="true"
-        className="absolute bottom-5 left-1/2 hidden -translate-x-1/2 text-white/50 lg:block"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <ChevronDown className="h-6 w-6" />
-      </motion.div>
+      </div>
     </section>
   )
 }
@@ -303,99 +348,129 @@ function Statement() {
   )
 }
 
-/* ════════════════════════ SERVICES (bento) ════════════════════════ */
-const bentoLayout = [
-  'lg:col-span-2 lg:row-span-2', // 0 large
-  '',
-  '',
-  '',
-  '',
-  'lg:col-span-2', // 5 wide
-  '',
-  '',
-]
+/* ════════════════════════ SERVICES (pinned horizontal gallery) ════════════════════════ */
+function useMedia(query) {
+  const [match, setMatch] = useState(() => typeof window !== 'undefined' && window.matchMedia(query).matches)
+  useEffect(() => {
+    const mq = window.matchMedia(query)
+    const fn = () => setMatch(mq.matches)
+    fn()
+    mq.addEventListener('change', fn)
+    return () => mq.removeEventListener('change', fn)
+  }, [query])
+  return match
+}
 
-function ServiceTile({ service, index, className }) {
-  const big = index === 0
+function ServicePanel({ service, index }) {
   return (
-    <StaggerItem className={`h-full ${className}`}>
-      <Link
-        to={`/services#${service.slug}`}
-        className={`group relative isolate flex h-full flex-col justify-end overflow-hidden rounded-4xl bg-navy p-6 sm:p-7 ${
-          big ? 'min-h-[26rem] lg:min-h-0' : 'min-h-[19rem]'
-        }`}
-      >
-        <img
-          src={service.image}
-          alt=""
-          loading="lazy"
-          className="absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110"
-        />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-navy/95 via-navy/25 to-transparent transition-colors duration-500 group-hover:from-brand-800/95 group-hover:via-brand-800/40" />
+    <Link
+      to={`/services#${service.slug}`}
+      data-cursor="View"
+      className="group relative isolate flex h-[26rem] w-[82vw] shrink-0 flex-col justify-end overflow-hidden rounded-[2rem] bg-navy p-7 sm:w-[24rem] lg:h-[min(36rem,68vh)] lg:w-[27rem] lg:p-9"
+    >
+      <img
+        src={service.image}
+        alt=""
+        loading="lazy"
+        className="absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-110"
+      />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-navy via-navy/30 to-navy/10 transition-opacity duration-500" />
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 -z-10 h-44 bg-gradient-to-b from-navy/60 to-transparent" />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-brand/0 mix-blend-multiply transition-colors duration-500 group-hover:bg-brand/40" />
 
-        <span className="absolute left-6 top-6 grid h-12 w-12 place-items-center rounded-2xl bg-white/15 text-white backdrop-blur-md transition-all duration-500 group-hover:bg-teal sm:left-7 sm:top-7">
+      <div className="absolute inset-x-7 top-7 flex items-start justify-between lg:inset-x-9 lg:top-9">
+        <span className="font-display text-6xl font-medium leading-none text-white/25 transition-colors duration-500 group-hover:text-teal">
+          {String(index + 1).padStart(2, '0')}
+        </span>
+        <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white/15 text-white backdrop-blur-md transition-colors duration-500 group-hover:bg-teal">
           <ServiceIcon name={service.icon} className="h-5 w-5" />
         </span>
-        <span className="absolute right-6 top-6 grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white transition-all duration-500 group-hover:rotate-45 group-hover:border-white group-hover:bg-white group-hover:text-navy sm:right-7 sm:top-7">
-          <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
-        </span>
+      </div>
 
-        <span className="font-display text-sm text-white/50">{String(index + 1).padStart(2, '0')}</span>
-        <h3 className={`mt-1 font-display font-medium leading-tight !text-white ${big ? 'text-4xl sm:text-5xl' : 'text-2xl'}`}>
-          {service.title}
-        </h3>
-        <p
-          className={`mt-3 text-white/75 transition-all duration-500 ${
-            big ? 'max-w-md text-lg' : 'max-h-0 overflow-hidden text-sm opacity-0 group-hover:max-h-24 group-hover:opacity-100 max-lg:max-h-24 max-lg:opacity-100'
-          }`}
-        >
-          {service.short}
+      <h3 className="font-display text-3xl font-medium leading-tight !text-white lg:text-[2.1rem]">{service.title}</h3>
+      <p className="mt-3 max-w-xs text-white/70">{service.short}</p>
+      <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white">
+        <span className="h-px w-8 bg-teal transition-all duration-500 group-hover:w-14" aria-hidden="true" />
+        Learn more
+      </span>
+    </Link>
+  )
+}
+
+function ServicesIntro() {
+  return (
+    <div className="w-[82vw] shrink-0 sm:w-[24rem] lg:w-[30rem] lg:pr-10">
+      <Eyebrow>Dental services</Eyebrow>
+      <h2 className="h-display mt-6 text-[2.6rem] leading-[1.02] sm:text-6xl lg:text-[4.2rem]">
+        Care for every part <span className="italic text-brand">of your smile</span>
+      </h2>
+      <p className="mt-6 max-w-sm text-lg text-navy-500">
+        From preventive visits to orthodontic consultations, explore the care you can ask our team about.
+      </p>
+      <Button to="/services" variant="outline" className="group mt-8">
+        View all services <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+      </Button>
+      {!site.servicesConfirmed && (
+        <p className="mt-8 max-w-xs text-sm text-navy-500">
+          Treatment availability may vary.{' '}
+          <a href={site.phoneHref} className="font-semibold text-brand hover:underline">Call {site.phoneDisplay}</a> to
+          confirm a specific service.
         </p>
-      </Link>
-    </StaggerItem>
+      )}
+    </div>
   )
 }
 
 function Services() {
-  return (
-    <section className="section bg-sky-soft">
-      <div className="container-x">
-        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-          <div className="max-w-2xl">
-            <Reveal>
-              <Eyebrow>Dental services</Eyebrow>
-            </Reveal>
-            <Reveal delay={100}>
-              <h2 className="h-display mt-6 text-[2.5rem] leading-[1.05] sm:text-6xl">
-                Care for every part <span className="italic text-brand">of your smile</span>
-              </h2>
-            </Reveal>
-          </div>
-          <Reveal delay={200} className="max-w-sm">
-            <p className="text-lg text-navy-500">
-              From preventive visits to orthodontic consultations, explore the care you can ask our team about.
-            </p>
-            <Button to="/services" variant="outline" className="group mt-6">
-              View all services <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-            </Button>
-          </Reveal>
+  const desktop = useMedia('(min-width: 1024px)')
+  const reduce = useReducedMotion()
+  const ref = useRef(null)
+  const track = useRef(null)
+  const [distance, setDistance] = useState(0)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
+  const x = useTransform(scrollYProgress, [0, 1], [0, -distance])
+  const bar = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
+  const pinned = desktop && !reduce
+
+  useEffect(() => {
+    if (!pinned) return
+    const measure = () => track.current && setDistance(Math.max(0, track.current.scrollWidth - window.innerWidth + 64))
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [pinned])
+
+  if (!pinned) {
+    return (
+      <section className="section overflow-hidden bg-sky-soft">
+        <div className="container-x">
+          <ServicesIntro />
         </div>
-
-        <Stagger className="mt-16 grid auto-rows-[19rem] gap-4 sm:grid-cols-2 lg:grid-cols-4" stagger={0.08}>
+        <div className="mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:px-6 [scrollbar-width:none]">
           {services.map((s, i) => (
-            <ServiceTile key={s.slug} service={s} index={i} className={bentoLayout[i]} />
+            <div key={s.slug} className="snap-start">
+              <ServicePanel service={s} index={i} />
+            </div>
           ))}
-        </Stagger>
+        </div>
+      </section>
+    )
+  }
 
-        {!site.servicesConfirmed && (
-          <Reveal className="mt-8 text-center text-sm text-navy-500">
-            Treatment availability may vary.{' '}
-            <a href={site.phoneHref} className="font-semibold text-brand hover:underline">
-              Call {site.phoneDisplay}
-            </a>{' '}
-            to confirm a specific service.
-          </Reveal>
-        )}
+  return (
+    <section ref={ref} className="relative bg-sky-soft" style={{ height: `calc(100vh + ${distance}px)` }}>
+      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pt-[calc(var(--header-h)-1.5rem)]">
+        <motion.div ref={track} style={{ x }} className="flex items-center gap-6 pl-[max(2rem,calc((100vw-80rem)/2+2rem))] pr-16">
+          <ServicesIntro />
+          {services.map((s, i) => (
+            <ServicePanel key={s.slug} service={s} index={i} />
+          ))}
+        </motion.div>
+        <div className="container-x mt-10">
+          <div className="h-[3px] w-full overflow-hidden rounded-full bg-navy/10">
+            <motion.div className="h-full rounded-full bg-gradient-to-r from-brand to-teal" style={{ width: bar }} />
+          </div>
+        </div>
       </div>
     </section>
   )
@@ -473,45 +548,105 @@ function WhyChooseUs() {
   )
 }
 
-/* ════════════════════════ PROCESS ════════════════════════ */
-function Process() {
-  const steps = [
-    { title: 'Send a request', text: 'Use the online form or call our office. It only takes a minute.' },
-    { title: 'We confirm with you', text: 'Our team contacts you to arrange a date and time that suits you.' },
-    { title: 'Visit the clinic', text: `Come see us at ${site.address.street}, Miami.` },
-  ]
+/* ════════════════════════ PROCESS (sticky stacking cards) ════════════════════════ */
+const steps = [
+  {
+    title: 'Send a request',
+    text: 'Use the online form or call our office. It only takes a minute, and you can tell us what you’d like help with.',
+    image: '/images/consultation.webp',
+    bg: 'bg-brand',
+    cta: { to: '/book-appointment', label: 'Start your request' },
+  },
+  {
+    title: 'We confirm with you',
+    text: 'Our team contacts you to arrange a date and time that suits you. Nothing is booked until we’ve spoken.',
+    image: '/images/preventive.webp',
+    bg: 'bg-teal-700',
+    cta: { href: site.phoneHref, label: `Call ${site.phoneDisplay}` },
+  },
+  {
+    title: 'Visit the clinic',
+    text: `Come see us at ${site.address.street}, ${site.address.city}. We’ll walk you through your care in plain language.`,
+    image: '/images/clinic-miami.webp',
+    bg: 'bg-navy',
+    cta: { href: site.mapsDirectionsUrl, label: 'Get directions', ext: true },
+  },
+]
+
+function StepCard({ step, index, total, progress }) {
+  const target = 1 - (total - 1 - index) * 0.05
+  const scale = useTransform(progress, [index / total, 1], [1, target])
+  const reduce = useReducedMotion()
   return (
-    <section className="section bg-white">
+    <div className="sticky flex h-[85vh] items-start justify-center pt-4" style={{ top: `calc(var(--header-h) + ${index * 28}px)` }}>
+      <motion.article
+        style={reduce ? undefined : { scale }}
+        className={`relative grid w-full origin-top overflow-hidden rounded-[2.25rem] text-white shadow-[0_-20px_60px_-30px_rgba(23,50,74,0.5)] md:grid-cols-2 ${step.bg}`}
+      >
+        <div className="flex flex-col justify-between p-8 sm:p-12 lg:p-14">
+          <div className="flex items-center justify-between">
+            <span className="rounded-full border border-white/25 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/80">
+              Step {index + 1} of {total}
+            </span>
+          </div>
+          <div className="mt-16 md:mt-0">
+            <span className="font-display text-[7rem] font-medium leading-none text-white/15 sm:text-[9rem]">0{index + 1}</span>
+            <h3 className="h-display -mt-6 text-4xl !text-white sm:text-5xl">{step.title}</h3>
+            <p className="mt-5 max-w-md text-lg leading-relaxed text-white/75">{step.text}</p>
+            {step.cta.to ? (
+              <Link to={step.cta.to} className="group mt-8 inline-flex items-center gap-3 font-semibold">
+                {step.cta.label}
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-navy transition-transform duration-300 group-hover:rotate-45">
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </span>
+              </Link>
+            ) : (
+              <a
+                href={step.cta.href}
+                {...(step.cta.ext ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                className="group mt-8 inline-flex items-center gap-3 font-semibold"
+              >
+                {step.cta.label}
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-navy transition-transform duration-300 group-hover:rotate-45">
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </span>
+              </a>
+            )}
+          </div>
+        </div>
+        <div className="relative hidden min-h-[30rem] md:block">
+          <img src={step.image} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+        </div>
+      </motion.article>
+    </div>
+  )
+}
+
+function Process() {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
+  return (
+    <section className="bg-white pt-20 sm:pt-28">
       <div className="container-x">
-        <div className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-4">
+        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+          <div>
             <Reveal>
               <Eyebrow>Appointments</Eyebrow>
             </Reveal>
             <Reveal delay={100}>
-              <h2 className="h-display mt-6 text-[2.5rem] leading-[1.05] sm:text-5xl">Requesting a visit is simple</h2>
-            </Reveal>
-            <Reveal delay={200}>
-              <Button to="/book-appointment" className="group mt-8">
-                Start your request <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-              </Button>
+              <h2 className="h-display mt-6 max-w-2xl text-[2.6rem] leading-[1.02] sm:text-6xl">
+                Requesting a visit is <span className="italic text-brand">simple</span>
+              </h2>
             </Reveal>
           </div>
-          <Stagger as="ol" className="grid gap-4 sm:grid-cols-3 lg:col-span-8" stagger={0.15}>
-            {steps.map((s, i) => (
-              <StaggerItem
-                as="li"
-                key={s.title}
-                className="group relative overflow-hidden rounded-4xl border border-navy/[0.07] bg-sky-soft p-7 transition-colors duration-500 hover:bg-brand"
-              >
-                <span className="font-display text-7xl font-medium text-brand/20 transition-colors duration-500 group-hover:text-white/25">
-                  0{i + 1}
-                </span>
-                <h3 className="mt-10 text-xl font-semibold transition-colors duration-500 group-hover:!text-white">{s.title}</h3>
-                <p className="mt-2 text-navy-500 transition-colors duration-500 group-hover:text-white/80">{s.text}</p>
-              </StaggerItem>
-            ))}
-          </Stagger>
+          <Reveal delay={200} className="max-w-sm text-lg text-navy-500">
+            Three easy steps from your first message to your visit.
+          </Reveal>
+        </div>
+        <div ref={ref} className="relative mt-6 pb-16">
+          {steps.map((s, i) => (
+            <StepCard key={s.title} step={s} index={i} total={steps.length} progress={scrollYProgress} />
+          ))}
         </div>
       </div>
     </section>
@@ -733,12 +868,15 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <EmergencyRibbon />
+      <ConcernPicker />
       <Statement />
       <Services />
       <BigMarquee />
       <WhyChooseUs />
       <Process />
       <Testimonials />
+      <Faq />
       <ImageCta />
       <Location />
     </>

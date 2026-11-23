@@ -24,7 +24,9 @@ export default function AppointmentForm({ compact = false }) {
   const preselect = services.find((s) => s.slug === params.get('service'))?.title ?? ''
   const dateParam = params.get('date') ?? ''
   const predate = /^\d{4}-\d{2}-\d{2}$/.test(dateParam) && dateParam >= todayISO() ? dateParam : ''
-  const empty = { name: '', phone: '', email: '', date: predate, time: '', service: preselect, message: '', company: '' }
+  // Optional concern carried over from the home page "What brings you in?" picker.
+  const prenote = (params.get('note') ?? '').slice(0, 200)
+  const empty = { name: '', phone: '', email: '', date: predate, time: '', service: preselect, message: prenote, company: '' }
 
   const [values, setValues] = useState(empty)
   const [errors, setErrors] = useState({})
