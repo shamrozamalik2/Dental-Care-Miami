@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { HeartHandshake, ShieldCheck, MessagesSquare, MapPin, Phone, Star, ArrowRight } from 'lucide-react'
+import { Armchair, HeartHandshake, ShieldCheck, MessagesSquare, MapPin, Phone, Star, ArrowRight } from 'lucide-react'
 import PageHero from '../components/PageHero.jsx'
 import Button from '../components/Button.jsx'
 import Reveal from '../components/Reveal.jsx'
@@ -14,42 +14,48 @@ import { useSeo } from '../lib/useSeo.js'
 const values = [
   {
     icon: HeartHandshake,
-    title: 'Patient comfort',
-    text: 'A welcoming, friendly environment where you can relax, ask questions, and feel at ease.',
+    title: 'Patient-centered care',
+    text: 'Your needs and questions shape every visit. We take the time to listen.',
   },
   {
-    icon: ShieldCheck,
-    title: 'Professional service',
-    text: 'Careful, professional care — the quality patients have highlighted in their reviews.',
+    icon: Armchair,
+    title: 'A comfortable experience',
+    text: 'A calm, welcoming setting where you can relax and feel at ease.',
   },
   {
     icon: MessagesSquare,
     title: 'Clear communication',
     text: 'We explain your options in plain language so you always know what to expect.',
   },
+  {
+    icon: ShieldCheck,
+    title: 'Commitment to oral health',
+    text: 'Helping you care for your teeth and gums, today and over the long term.',
+  },
 ]
 
 export default function About() {
   useSeo({
-    title: 'About Us | Dental Care Miami LLC — Dental Clinic in Miami, FL',
+    title: 'About Us | Miami Dental Clinic — Dentist in Miami, FL',
     description:
-      'Learn about Dental Care Miami LLC, a dental clinic at 2772 NW 7th St, Miami, FL focused on patient comfort, professional service and clear communication.',
+      'Learn about Miami Dental Clinic at 201 Northwest Dr, Miami, FL: patient-centered dental care, a comfortable experience and clear communication.',
   })
   return (
     <>
       <PageHero
         crumb="About Us"
+        image="/images/clinic-miami.webp"
         eyebrow="About Us"
         title="Dental care centered on you"
-        intro="Dental Care Miami LLC is a dental clinic in Miami, Florida, committed to comfortable visits, professional care and honest, clear communication."
+        intro="Miami Dental Clinic is a dental practice in Miami, Florida, focused on patient-centered care, comfortable visits and clear, honest communication."
       />
 
       <section className="section">
         <div className="container-x grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
           <div className="relative">
             <RevealImage
-              src="/images/clinic-room.webp"
-              alt="Clean, well-lit dental treatment room"
+              src="/images/clinic-miami.webp"
+              alt="Dental treatment room with large windows looking out onto palm trees"
               loading="lazy"
               width="1100"
               height="800"
@@ -72,7 +78,7 @@ export default function About() {
           </div>
 
           <div>
-            <SectionHeading align="left" eyebrow="Who We Are" title="A Miami dental clinic built on care and trust" />
+            <SectionHeading align="left" eyebrow="Who We Are" title="Dental care built around you" />
             <Reveal className="mt-6 space-y-5 text-lg leading-relaxed text-navy-500">
               <p>
                 At {site.name}, we believe a great dental experience starts long before you sit in the chair. It starts
@@ -102,12 +108,12 @@ export default function About() {
           <SectionHeading
             eyebrow="Our Approach"
             title="What you can expect from us"
-            intro="Three principles guide every visit to our clinic."
+            intro="Four principles guide every visit to our clinic."
           />
-          <div className="mt-14 grid gap-5 md:grid-cols-3">
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {values.map(({ icon: Icon, title, text }, i) => (
               <Reveal key={title} delay={i * 100} className="card p-8 text-center">
-                <span className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-brand text-white shadow-[0_10px_24px_-10px_rgba(8,127,181,0.8)]">
+                <span className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-brand text-white shadow-[0_10px_24px_-10px_rgba(8,126,171,0.8)]">
                   <Icon className="h-7 w-7" aria-hidden="true" strokeWidth={1.75} />
                 </span>
                 <h3 className="mt-6 text-xl font-semibold">{title}</h3>

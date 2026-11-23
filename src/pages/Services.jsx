@@ -54,17 +54,18 @@ function ServiceRow({ service, index }) {
 
 export default function Services() {
   useSeo({
-    title: 'Dental Services in Miami, FL | Dental Care Miami LLC',
+    title: 'Dental Services in Miami, FL | Miami Dental Clinic',
     description:
-      'General dentistry, emergency dental care, tooth and wisdom tooth extraction, cleanings, cosmetic dentistry and whitening in Miami, FL. Call +1 844-817-0271.',
+      'Teeth cleaning, preventive care, cosmetic dentistry, orthodontics, braces consultations, extractions and emergency dental consultations in Miami, FL. Call +1 239-499-6242.',
   })
   return (
     <>
       <PageHero
         crumb="Services"
+        image="/images/general.webp"
         eyebrow="Our Services"
         title="Dental services in Miami, Florida"
-        intro="Explore the care available at Dental Care Miami LLC — and if you’re unsure what you need, a consultation is a great place to start."
+        intro="Explore the types of care you can ask Miami Dental Clinic about. Not sure what you need? Call our office and we’ll help you find the right next step."
       />
 
       {/* Quick jump nav */}
@@ -129,8 +130,8 @@ export default function Services() {
 
           <Reveal className="mt-24 text-center">
             <p className="text-navy-500">Not sure which service you need?</p>
-            <Button to="/book-appointment?service=dental-consultations" variant="outline" className="mt-4">
-              Request a consultation <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            <Button to="/book-appointment" variant="outline" className="mt-4">
+              Request an appointment <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Button>
           </Reveal>
         </div>

@@ -13,7 +13,7 @@ export default function Footer() {
         <div className="lg:col-span-4">
           <Logo light />
           <p className="mt-5 max-w-sm leading-relaxed">
-            Patient-focused dental care in Miami, Florida. Request an appointment online or call our team directly.
+            Patient-centered dental care in Miami, Florida. Request an appointment online or call our office directly.
           </p>
           <div className="mt-6 inline-block rounded-2xl bg-white p-1">
             <GoogleRating variant="inline" className="px-3 py-2 text-navy" />
@@ -71,12 +71,18 @@ export default function Footer() {
                 {site.hours.verified ? (
                   <Link to="/contact#hours" className="hover:text-teal">See opening hours</Link>
                 ) : (
-                  <>Hours pending confirmation — please call ahead.</>
+                  <>Google lists closing at 9 PM. Please call ahead to confirm hours.</>
                 )}
               </span>
             </li>
           </ul>
         </div>
+      </div>
+
+      <div aria-hidden="true" className="container-x relative select-none overflow-hidden">
+        <p className="whitespace-nowrap font-display text-[9.6vw] font-medium leading-[0.95] tracking-tight text-white/[0.07] xl:text-[8.4rem]">
+          Miami Dental Clinic
+        </p>
       </div>
 
       <div className="border-t border-white/10">

@@ -16,7 +16,7 @@ export default function ServiceCard({ service, index = 0 }) {
           className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-brand-50 transition-transform duration-700 ease-out group-hover:scale-[2.4]"
         />
         <span className="relative flex items-center justify-between">
-          <span className="grid h-14 w-14 place-items-center rounded-2xl bg-brand text-white shadow-[0_10px_24px_-10px_rgba(8,127,181,0.8)] transition-all duration-500 group-hover:-rotate-6 group-hover:scale-110 group-hover:bg-teal">
+          <span className="grid h-14 w-14 place-items-center rounded-2xl bg-brand text-white shadow-[0_10px_24px_-10px_rgba(8,126,171,0.8)] transition-all duration-500 group-hover:-rotate-6 group-hover:scale-110 group-hover:bg-teal">
             <ServiceIcon name={service.icon} />
           </span>
           <span className="font-display text-sm text-navy-300 transition-colors group-hover:text-brand">

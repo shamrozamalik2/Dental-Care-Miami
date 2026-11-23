@@ -1,6 +1,6 @@
-import { Stethoscope, Siren, Syringe, ScanFace, Sparkles, Smile, Sun, MessagesSquare, Circle } from 'lucide-react'
+import { Stethoscope, ShieldCheck, Sparkles, Smile, Ruler, MessagesSquare, Syringe, Siren, Circle } from 'lucide-react'
 
-const icons = { Stethoscope, Siren, Syringe, ScanFace, Sparkles, Smile, Sun, MessagesSquare }
+const icons = { Stethoscope, ShieldCheck, Sparkles, Smile, Ruler, MessagesSquare, Syringe, Siren }
 
 export default function ServiceIcon({ name, className = 'h-6 w-6' }) {
   const Icon = icons[name] || Circle

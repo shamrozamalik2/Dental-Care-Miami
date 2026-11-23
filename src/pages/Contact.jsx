@@ -11,14 +11,15 @@ import { useSeo } from '../lib/useSeo.js'
 
 export default function Contact() {
   useSeo({
-    title: 'Contact Us | Dental Care Miami LLC — 2772 NW 7th St, Miami, FL',
+    title: 'Contact Us | Miami Dental Clinic — 201 Northwest Dr, Miami, FL',
     description:
-      'Contact Dental Care Miami LLC at 2772 NW 7th St, Miami, FL 33125. Call +1 844-817-0271, get directions, or send us a message online.',
+      'Contact Miami Dental Clinic at 201 Northwest Dr, Miami, FL 33126. Call +1 239-499-6242, get directions, or send us a message online.',
   })
   return (
     <>
       <PageHero
         crumb="Contact"
+        image="/images/hero-1920.webp"
         eyebrow="Contact Us"
         title="We’re here to help"
         intro="Call us, send a message, or stop by our Miami clinic. The fastest way to reach us is by phone."

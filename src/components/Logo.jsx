@@ -1,28 +1,32 @@
 import { Link } from 'react-router-dom'
 
+/** Brand mark: a rounded tooth outline over a two-tone blue/turquoise tile. */
 export function ToothMark({ className = 'h-9 w-9' }) {
   return (
     <svg viewBox="0 0 64 64" className={className} aria-hidden="true">
-      <rect width="64" height="64" rx="18" fill="#087FB5" />
+      <rect width="64" height="64" rx="18" fill="#087EAB" />
+      <path d="M64 30v16c0 9.9-8.1 18-18 18H30C44 60 56 46 64 30z" fill="#20B8B0" />
       <path
-        d="M32 18c-3-2.4-6.4-3.4-9.6-2.6-4.6 1.2-6.9 6-6 11.4.6 3.6 2.1 6.6 3 10.2.9 3.6 1 9.2 4 11.2 2.9 1.900 4.2-2.6 4.9-5.5.6-2.6 1.5-5.6 3.700-5.6s3.1 3 3.7 5.6c.7 2.9 2 7.4 4.9 5.5 3-2 3.1-7.6 4-11.2.9-3.6 2.4-6.6 3-10.2.9-5.4-1.4-10.2-6-11.4-3.2-.8-6.6.2-9.600 2.6z"
-        fill="#fff"
+        d="M32 19.5c-2.8-2.1-5.9-2.9-8.8-2.2-4.2 1.1-6.3 5.5-5.5 10.4.5 3.3 1.9 6 2.7 9.3.8 3.3.9 8.4 3.7 10.2 2.6 1.7 3.8-2.4 4.5-5 .5-2.4 1.4-5.1 3.4-5.1s2.9 2.7 3.4 5.1c.7 2.6 1.9 6.7 4.5 5 2.8-1.8 2.9-6.9 3.7-10.2.8-3.3 2.2-6 2.7-9.3.8-4.9-1.3-9.3-5.5-10.4-2.9-.7-6 .1-8.8 2.2z"
+        fill="none"
+        stroke="#fff"
+        strokeWidth="3.2"
+        strokeLinejoin="round"
       />
-      <circle cx="44" cy="20" r="5" fill="#16B8A6" />
     </svg>
   )
 }
 
 export default function Logo({ light = false }) {
   return (
-    <Link to="/" className="group flex items-center gap-3" aria-label="Dental Care Miami LLC — Home">
+    <Link to="/" className="group flex items-center gap-3" aria-label="Miami Dental Clinic — Home">
       <ToothMark className="h-10 w-10 shrink-0 transition-transform duration-300 group-hover:-rotate-6" />
       <span className="leading-none">
-        <span className={`block font-display text-[1.2rem] font-semibold tracking-tight ${light ? 'text-white' : 'text-navy'}`}>
-          Dental Care Miami
+        <span className={`block font-display text-[1.25rem] font-semibold tracking-tight ${light ? 'text-white' : 'text-navy'}`}>
+          Miami Dental Clinic
         </span>
         <span className={`mt-1 block text-[10px] font-semibold uppercase tracking-[0.22em] ${light ? 'text-white/60' : 'text-navy-500'}`}>
-          LLC · Miami, Florida
+          Miami, Florida
         </span>
       </span>
     </Link>

@@ -12,7 +12,7 @@ export function GoogleG({ className = 'h-5 w-5' }) {
   )
 }
 
-/** "5.0 ★★★★★ · 2 Google reviews" — links to the clinic's Google listing. */
+/** "3.7 ★★★★☆ · 12 Google reviews" — links to the clinic's Google listing. */
 export default function GoogleRating({ variant = 'card', light = false, className = '' }) {
   const { value, count } = site.rating
   const label = `${count} Google review${count === 1 ? '' : 's'}`

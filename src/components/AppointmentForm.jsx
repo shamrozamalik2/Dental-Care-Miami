@@ -22,7 +22,9 @@ const rules = {
 export default function AppointmentForm({ compact = false }) {
   const [params] = useSearchParams()
   const preselect = services.find((s) => s.slug === params.get('service'))?.title ?? ''
-  const empty = { name: '', phone: '', email: '', date: '', time: '', service: preselect, message: '', company: '' }
+  const dateParam = params.get('date') ?? ''
+  const predate = /^\d{4}-\d{2}-\d{2}$/.test(dateParam) && dateParam >= todayISO() ? dateParam : ''
+  const empty = { name: '', phone: '', email: '', date: predate, time: '', service: preselect, message: '', company: '' }
 
   const [values, setValues] = useState(empty)
   const [errors, setErrors] = useState({})
@@ -154,7 +156,7 @@ export default function AppointmentForm({ compact = false }) {
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-7 py-4 font-semibold text-white shadow-[0_10px_30px_-10px_rgba(8,127,181,0.8)] transition hover:-translate-y-0.5 hover:bg-brand-600 disabled:opacity-70"
+        className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-7 py-4 font-semibold text-white shadow-[0_10px_30px_-10px_rgba(8,126,171,0.8)] transition hover:-translate-y-0.5 hover:bg-brand-600 disabled:opacity-70"
       >
         {status === 'sending' ? (
           <>

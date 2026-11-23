@@ -2,7 +2,6 @@ import { Phone, ClipboardList, PhoneCall, Smile, Siren } from 'lucide-react'
 import PageHero from '../components/PageHero.jsx'
 import AppointmentForm from '../components/AppointmentForm.jsx'
 import HoursCard from '../components/HoursCard.jsx'
-import GoogleRating from '../components/GoogleRating.jsx'
 import Reveal from '../components/Reveal.jsx'
 import { site } from '../config/site.js'
 import { useSeo } from '../lib/useSeo.js'
@@ -15,19 +14,20 @@ const steps = [
 
 export default function BookAppointment() {
   useSeo({
-    title: 'Book an Appointment | Dental Care Miami LLC — Miami, FL',
+    title: 'Book an Appointment | Miami Dental Clinic — Miami, FL',
     description:
-      'Request a dental appointment online with Dental Care Miami LLC in Miami, FL. Choose your preferred date, time and service — the clinic will call to confirm.',
+      'Request a dental appointment online with Miami Dental Clinic in Miami, FL. Choose your preferred date, time and service, and our office will contact you to confirm.',
   })
   return (
     <>
       <PageHero
         crumb="Book an Appointment"
+        image="/images/consultation.webp"
         eyebrow="Appointments"
         title="Request an appointment"
         intro="Share a few details and your preferred time. Our team will contact you to confirm — it only takes a minute."
       >
-        <GoogleRating variant="inline" />
+        <a href={site.phoneHref} className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-3 font-semibold text-white backdrop-blur transition hover:bg-white/20"><Phone className="h-4 w-4" aria-hidden="true" /> Prefer to call? {site.phoneDisplay}</a>
       </PageHero>
 
       <section className="section !pt-12 sm:!pt-16">

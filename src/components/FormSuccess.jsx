@@ -46,7 +46,7 @@ export default function FormSuccess({ title, children, onReset, resetLabel }) {
             cy="40"
             r="36"
             fill="none"
-            stroke="#16B8A6"
+            stroke="#20B8B0"
             strokeWidth="3"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
@@ -55,7 +55,7 @@ export default function FormSuccess({ title, children, onReset, resetLabel }) {
           <motion.path
             d="M26 41.5l9.5 9.5L55 31"
             fill="none"
-            stroke="#16B8A6"
+            stroke="#20B8B0"
             strokeWidth="5"
             strokeLinecap="round"
             strokeLinejoin="round"

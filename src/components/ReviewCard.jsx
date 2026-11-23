@@ -1,45 +1,47 @@
-import { Quote, BadgeCheck } from 'lucide-react'
-import Stars from './Stars.jsx'
+import { Quote, ArrowUpRight } from 'lucide-react'
 import { GoogleG } from './GoogleRating.jsx'
+import { site } from '../config/site.js'
 
 /**
- * Shows an exact quote when available. If only a summary exists, it is
- * labelled as a summary so it's never mistaken for the reviewer's own words.
+ * An excerpt from a Google review. No reviewer name, star score or date is shown
+ * because they weren't supplied. The card links to the full reviews on Google.
  */
-export default function ReviewCard({ review, large = false }) {
-  const isQuote = Boolean(review.quote)
+export default function ReviewCard({ review, large = false, dark = false }) {
   return (
-    <figure className={`card relative flex h-full flex-col ${large ? 'p-8 sm:p-10' : 'p-7 sm:p-8'}`}>
-      <Quote aria-hidden="true" className="absolute right-7 top-7 h-10 w-10 text-brand-100" strokeWidth={1.5} />
-      <div className="flex items-center gap-3">
-        <Stars value={review.rating} />
-        <span className="rounded-full bg-teal-50 px-2.5 py-1 text-xs font-semibold text-teal-700">{review.tag}</span>
-      </div>
-
-      {isQuote ? (
-        <blockquote className={`mt-6 flex-1 font-display leading-snug text-navy ${large ? 'text-2xl sm:text-[1.7rem]' : 'text-xl'}`}>
-          “{review.quote}”
-        </blockquote>
-      ) : (
-        <div className="mt-6 flex-1">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-navy-300">Review summary</p>
-          <p className={`mt-2 font-display leading-snug text-navy ${large ? 'text-2xl sm:text-[1.7rem]' : 'text-xl'}`}>
-            A patient {review.summary.charAt(0).toLowerCase() + review.summary.slice(1)}
-          </p>
-        </div>
-      )}
-
-      <figcaption className="mt-8 flex items-center justify-between border-t border-navy/[0.06] pt-5">
+    <figure
+      className={`relative flex h-full flex-col rounded-3xl border p-7 sm:p-8 ${
+        dark ? 'border-white/10 bg-white/[0.06] text-white backdrop-blur' : 'border-navy/[0.06] bg-white shadow-soft'
+      }`}
+    >
+      <Quote aria-hidden="true" className={`h-9 w-9 ${dark ? 'text-teal' : 'text-brand-200'}`} strokeWidth={1.5} />
+      <blockquote
+        className={`mt-5 flex-1 font-display leading-snug ${large ? 'text-2xl sm:text-[1.75rem]' : 'text-xl sm:text-[1.4rem]'} ${
+          dark ? '!text-white' : 'text-navy'
+        }`}
+      >
+        “{review.excerpt}”
+      </blockquote>
+      <figcaption className={`mt-8 flex items-center justify-between border-t pt-5 ${dark ? 'border-white/10' : 'border-navy/[0.06]'}`}>
         <span className="flex items-center gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded-full bg-sky-soft">
+          <span className={`grid h-10 w-10 place-items-center rounded-full ${dark ? 'bg-white' : 'bg-sky-soft'}`}>
             <GoogleG className="h-5 w-5" />
           </span>
           <span>
-            <span className="block text-sm font-semibold">{review.author}</span>
-            <span className="block text-xs text-navy-500">{review.rating}-star review on Google</span>
+            <span className={`block text-sm font-semibold ${dark ? 'text-white' : ''}`}>Google review excerpt</span>
+            <span className={`block text-xs ${dark ? 'text-white/60' : 'text-navy-500'}`}>Patient review</span>
           </span>
         </span>
-        <BadgeCheck className="h-5 w-5 text-teal" aria-label="Review from Google" />
+        <a
+          href={site.googleProfileUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Read full reviews on Google"
+          className={`grid h-9 w-9 place-items-center rounded-full transition ${
+            dark ? 'text-white/60 hover:bg-white/10 hover:text-white' : 'text-navy-300 hover:bg-brand-50 hover:text-brand'
+          }`}
+        >
+          <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </a>
       </figcaption>
     </figure>
   )

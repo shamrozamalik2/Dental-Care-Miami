@@ -86,7 +86,7 @@ export function Counter({ value, decimals = 0, duration = 1.6, className = '' })
 
 /* ───────────── 3D tilt + cursor spotlight ───────────── */
 
-export function Tilt({ children, className = '', max = 7, glow = 'rgba(8,127,181,0.12)' }) {
+export function Tilt({ children, className = '', max = 7, glow = 'rgba(8,126,171,0.12)' }) {
   const ref = useRef(null)
   const reduce = useReducedMotion()
   const px = useMotionValue(0.5)
@@ -272,6 +272,37 @@ export function DrawPath({ d, className = '', delay = 0, duration = 1.1, strokeW
         transition={{ duration, ease: EASE, delay }}
       />
     </svg>
+  )
+}
+
+/* ───────────── Scroll-linked text: words brighten as you scroll ───────────── */
+
+function ScrollWord({ children, progress, range }) {
+  const opacity = useTransform(progress, range, [0.14, 1])
+  return (
+    <>
+      <motion.span style={{ opacity }}>{children}</motion.span>{' '}
+    </>
+  )
+}
+
+export function ScrollRevealText({ text, as = 'p', className = '' }) {
+  const ref = useRef(null)
+  const reduce = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.85', 'end 0.4'] })
+  const Tag = as
+  if (reduce) return <Tag className={className}>{text}</Tag>
+  const words = text.split(' ')
+  return (
+    <Tag ref={ref} className={className} aria-label={text}>
+      <span aria-hidden="true">
+        {words.map((w, i) => (
+          <ScrollWord key={i} progress={scrollYProgress} range={[i / words.length, (i + 1) / words.length]}>
+            {w}
+          </ScrollWord>
+        ))}
+      </span>
+    </Tag>
   )
 }
 

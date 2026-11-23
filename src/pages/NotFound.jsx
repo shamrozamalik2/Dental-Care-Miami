@@ -5,7 +5,7 @@ import { site } from '../config/site.js'
 import { useSeo } from '../lib/useSeo.js'
 
 export default function NotFound() {
-  useSeo({ title: 'Page not found | Dental Care Miami LLC', description: 'The page you were looking for could not be found.' })
+  useSeo({ title: 'Page not found | Miami Dental Clinic', description: 'The page you were looking for could not be found.' })
   return (
     <section className="container-x grid min-h-[60vh] place-items-center py-24 text-center">
       <div>

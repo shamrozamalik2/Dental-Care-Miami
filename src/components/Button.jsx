@@ -5,8 +5,8 @@ const base =
 
 const variants = {
   primary:
-    'bg-brand text-white shadow-[0_8px_24px_-8px_rgba(8,127,181,0.7)] hover:bg-brand-600 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-10px_rgba(8,127,181,0.8)]',
-  accent: 'bg-teal text-white shadow-[0_8px_24px_-8px_rgba(22,184,166,0.7)] hover:bg-teal-600 hover:-translate-y-0.5',
+    'bg-brand text-white shadow-[0_8px_24px_-8px_rgba(8,126,171,0.7)] hover:bg-brand-600 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-10px_rgba(8,126,171,0.8)]',
+  accent: 'bg-teal text-white shadow-[0_8px_24px_-8px_rgba(32,184,176,0.7)] hover:bg-teal-600 hover:-translate-y-0.5',
   outline: 'border border-navy/15 bg-white text-navy hover:border-brand hover:text-brand hover:-translate-y-0.5',
   ghostLight: 'border border-white/30 bg-white/10 text-white backdrop-blur hover:bg-white/20',
   white: 'bg-white text-brand-700 hover:-translate-y-0.5 hover:shadow-lift',

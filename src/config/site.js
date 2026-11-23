@@ -1,33 +1,37 @@
 /**
  * ─────────────────────────────────────────────────────────────
- *  SITE CONFIGURATION — Dental Care Miami LLC
- *  Edit this file to update business details across the site.
+ *  SITE CONFIGURATION — Miami Dental Clinic
+ *  Edit this file to update business details across the whole site.
  *
- *  VERIFIED (from Google Business Profile): name, address, phone,
- *  rating (5.0 from 2 reviews), review #1 text.
+ *  FROM THE GOOGLE BUSINESS PROFILE (may be outdated, verify with the clinic):
+ *   - name, address, phone
+ *   - rating 3.7 / 5 from 12 reviews
+ *   - listed closing time 9 PM
+ *   - review excerpts below
  *
- *  NOT YET VERIFIED — confirm with the clinic before launch:
- *   - hours            (Google lists "Open 24 hours")
- *   - services         (proposed categories only)
- *   - review #2 exact wording (currently a summary)
- *   - whatsapp         (leave null unless an official number exists)
- *   - email            (leave null unless an official address exists)
+ *  ⚠ PHONE: 239 is a Southwest Florida area code (Fort Myers / Naples),
+ *    not a Miami one (305 / 786). Confirm this is the clinic's current number.
+ *
+ *  NOT DISPLAYED until verified:
+ *   - dentist: an older review mentions "Dr. Sotomayor". Current association unconfirmed.
+ *   - whatsapp / email: leave null unless the clinic confirms official ones.
  * ─────────────────────────────────────────────────────────────
  */
 
 export const site = {
-  name: 'Dental Care Miami LLC',
-  shortName: 'Dental Care Miami',
-  phoneDisplay: '+1 844-817-0271',
-  phoneHref: 'tel:+18448170271',
-  email: null, // e.g. 'hello@clinic.com' once confirmed
-  whatsapp: null, // e.g. '18448170271' (digits only) once an official WhatsApp number is confirmed
+  name: 'Miami Dental Clinic',
+  shortName: 'Miami Dental Clinic',
+  phoneDisplay: '+1 239-499-6242',
+  phoneHref: 'tel:+12394996242',
+  email: null,
+  whatsapp: null, // Only set if the clinic confirms it uses WhatsApp (digits only, e.g. '13055550123')
+  dentist: null, // e.g. { name: 'Dr. …' } once the clinic confirms the current dentist(s)
 
   address: {
-    street: '2772 NW 7th St',
+    street: '201 Northwest Dr',
     city: 'Miami',
     region: 'FL',
-    postalCode: '33125',
+    postalCode: '33126',
     country: 'United States',
   },
   get addressOneLine() {
@@ -35,23 +39,20 @@ export const site = {
     return `${a.street}, ${a.city}, ${a.region} ${a.postalCode}`
   },
 
-  mapsEmbedUrl:
-    'https://www.google.com/maps?q=Dental+Care+Miami+LLC,+2772+NW+7th+St,+Miami,+FL+33125&output=embed',
-  mapsDirectionsUrl:
-    'https://www.google.com/maps/dir/?api=1&destination=2772+NW+7th+St,+Miami,+FL+33125',
-  googleProfileUrl:
-    'https://www.google.com/maps/search/?api=1&query=Dental+Care+Miami+LLC+2772+NW+7th+St+Miami+FL+33125',
+  mapsEmbedUrl: 'https://www.google.com/maps?q=Miami+Dental+Clinic,+201+Northwest+Dr,+Miami,+FL+33126&output=embed',
+  mapsDirectionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=201+Northwest+Dr,+Miami,+FL+33126',
+  googleProfileUrl: 'https://www.google.com/maps/search/?api=1&query=Miami+Dental+Clinic+201+Northwest+Dr+Miami+FL+33126',
 
-  rating: { value: 5.0, count: 2, source: 'Google' },
+  /** Shown exactly as listed on Google. Update both numbers together. */
+  rating: { value: 3.7, count: 12, source: 'Google' },
 
   /**
-   * Opening hours.
-   * Set `verified: true` and fill `schedule` once the clinic confirms.
+   * Opening hours. Set `verified: true` and fill `schedule` once the clinic confirms them.
    */
   hours: {
     verified: false,
-    listedNote: 'Google Maps currently lists this location as open 24 hours.',
-    pendingNote: 'Please call ahead to confirm availability before visiting.',
+    listedNote: 'Google lists a closing time of 9 PM.',
+    pendingNote: 'Full opening hours are being confirmed, so please call before visiting.',
     schedule: [
       { day: 'Monday', time: 'To be confirmed' },
       { day: 'Tuesday', time: 'To be confirmed' },
@@ -68,103 +69,84 @@ export const site = {
 }
 
 /**
- * Proposed service categories — descriptions are general explanations of
- * each service type, not claims about outcomes. Edit / remove as needed.
+ * Proposed service categories, not yet confirmed by the clinic.
+ * Descriptions explain what each type of care generally involves; they make no claims about outcomes.
  */
 export const services = [
   {
     slug: 'general-dentistry',
     title: 'General Dentistry',
     icon: 'Stethoscope',
-    image: '/images/dental-exam.webp',
-    short: 'Routine check-ups and everyday dental care to help keep your teeth and gums healthy.',
-    long: 'General dentistry covers routine examinations and the everyday care that supports long-term oral health. Your visit is a chance to ask questions and talk through any concerns with the team.',
+    image: '/images/general.webp',
+    short: 'Everyday dental care and check-ups to help you look after your teeth and gums.',
+    long: 'General dentistry covers routine examinations and the everyday care that supports your oral health. It’s also your chance to raise any concerns and ask questions.',
   },
   {
-    slug: 'emergency-dental-care',
-    title: 'Emergency Dental Care',
-    icon: 'Siren',
-    image: '/images/dentist-tools.webp',
-    short: 'Dealing with sudden tooth pain or a dental injury? Call us to discuss being seen.',
-    long: 'Toothaches, a chipped or broken tooth, or a lost filling can’t always wait. Call the clinic directly so the team can talk through your situation and next steps.',
-    featured: true,
-  },
-  {
-    slug: 'tooth-extractions',
-    title: 'Tooth Extractions',
-    icon: 'Syringe',
-    image: '/images/treatment.webp',
-    short: 'When a tooth can’t be saved, extraction may be recommended after an examination.',
-    long: 'Extraction may be recommended for a tooth that is severely damaged or causing problems. The team will explain the process, what to expect, and aftercare so you feel prepared.',
-  },
-  {
-    slug: 'wisdom-tooth-extraction',
-    title: 'Wisdom Tooth Extraction',
-    icon: 'ScanFace',
-    image: '/images/xray-review.webp',
-    short: 'Evaluation and removal of wisdom teeth that are impacted or causing discomfort.',
-    long: 'Wisdom teeth can sometimes become impacted or crowd neighboring teeth. After an evaluation, the team will discuss whether removal is right for you and how to prepare.',
-    featured: true,
+    slug: 'preventive-dental-care',
+    title: 'Preventive Dental Care',
+    icon: 'ShieldCheck',
+    image: '/images/preventive.webp',
+    short: 'Care focused on helping prevent dental problems before they start.',
+    long: 'Preventive care focuses on regular check-ups and good daily habits. Ask the team for guidance on caring for your teeth between visits.',
   },
   {
     slug: 'teeth-cleaning',
     title: 'Teeth Cleaning',
     icon: 'Sparkles',
-    image: '/images/oral-care.webp',
-    short: 'Professional cleanings to remove plaque and tartar that brushing alone can miss.',
-    long: 'Professional cleanings remove plaque and tartar build-up and are a good opportunity to get personalized tips for your at-home routine.',
+    image: '/images/cleaning.webp',
+    short: 'Professional cleanings to remove plaque and tartar that brushing can miss.',
+    long: 'A professional cleaning removes plaque and tartar build-up. It’s a good time to ask for tips on improving your at-home routine.',
   },
   {
     slug: 'cosmetic-dentistry',
     title: 'Cosmetic Dentistry',
     icon: 'Smile',
-    image: '/images/smile.webp',
-    short: 'Options focused on the appearance of your smile, discussed during a consultation.',
-    long: 'Cosmetic dentistry focuses on how your smile looks. Talk with the team about your goals and the options that may be suitable for you.',
+    image: '/images/cosmetic.webp',
+    short: 'Options focused on the appearance of your smile, discussed one-on-one.',
+    long: 'Cosmetic dentistry focuses on how your smile looks. Talk with the team about your goals and which options may be suitable for you.',
   },
   {
-    slug: 'teeth-whitening',
-    title: 'Teeth Whitening',
-    icon: 'Sun',
-    image: '/images/smile.webp',
-    short: 'Professional whitening options to help brighten the look of your smile.',
-    long: 'Ask about professional whitening options and whether whitening is a good fit for your teeth.',
+    slug: 'orthodontics',
+    title: 'Orthodontics',
+    icon: 'Ruler',
+    image: '/images/orthodontics.webp',
+    short: 'Information on options for straightening teeth and improving alignment.',
+    long: 'Orthodontics deals with the alignment of teeth and bite. Ask about the options available and whether they may be right for you.',
   },
   {
-    slug: 'dental-consultations',
-    title: 'Dental Consultations',
+    slug: 'braces-consultation',
+    title: 'Braces Consultation',
     icon: 'MessagesSquare',
-    image: '/images/digital-scan.webp',
-    short: 'Sit down with the team to discuss concerns, questions, and your treatment options.',
-    long: 'Not sure what you need? A consultation is a straightforward way to discuss your concerns, ask questions, and understand your options before deciding on next steps.',
-    featured: true,
+    image: '/images/braces.webp',
+    short: 'Talk through whether braces could be right for you or your child.',
+    long: 'A braces consultation is a chance to discuss concerns about alignment, ask questions, and understand possible next steps before making any decisions.',
+  },
+  {
+    slug: 'tooth-extractions',
+    title: 'Tooth Extractions',
+    icon: 'Syringe',
+    image: '/images/extractions.webp',
+    short: 'When a tooth can’t be saved, extraction may be recommended after an examination.',
+    long: 'Extraction may be recommended for a tooth that is badly damaged or causing problems. The team will explain the process and aftercare so you know what to expect.',
+  },
+  {
+    slug: 'emergency-dental-consultations',
+    title: 'Emergency Dental Consultations',
+    icon: 'Siren',
+    image: '/images/emergency.webp',
+    short: 'Sudden tooth pain or a dental injury? Call us to discuss being seen.',
+    long: 'Toothaches, broken teeth or a lost filling can be stressful. Call the office directly so the team can talk through your situation and next steps.',
   },
 ]
 
 /**
- * Google reviews. Only real reviews belong here.
- * `quote` = exact review text. If only a summary is available, leave `quote`
- * null and fill `summary`; it will be displayed as a summary, not a quote.
+ * Excerpts from Google reviews. Only real text belongs here.
+ * Review dates vary, so they are not presented as recent.
  */
 export const reviews = [
-  {
-    id: 'review-1',
-    author: 'Google reviewer',
-    rating: 5,
-    quote:
-      'Great service and a professional team! Friendly staff, excellent communication, and a smooth experience. Highly recommend Dental Care Miami LLC!',
-    summary: null,
-    tag: 'Overall experience',
-  },
-  {
-    id: 'review-2',
-    author: 'Google reviewer',
-    rating: 5,
-    quote: null, // TODO: paste exact review text from Google here
-    summary:
-      'Described an excellent wisdom tooth extraction experience, with friendly staff and professional service.',
-    tag: 'Wisdom tooth extraction',
-  },
+  { id: 'r1', excerpt: 'I know I’m in good hands every time I visit this office.' },
+  { id: 'r2', excerpt: 'Good place for dental work.' },
+  { id: 'r3', excerpt: 'God bless and keep up the good work.' },
 ]
 
 export const nav = [
